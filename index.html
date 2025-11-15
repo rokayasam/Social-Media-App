@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Page (Full Screen) -->
+    <div id="loginPage" class="login-page active">
+        <div class="login-container">
+            <div class="login-logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" rx="20" fill="#8B5CF6"/>
+                    <path d="M35 45 L50 30 L65 45 M50 30 L50 70" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h1>SocialHub</h1>
+            <p class="login-subtitle">Connect with friends and the world around you</p>
+            
+            <div class="login-tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="signup">Sign Up</button>
+            </div>
+
+            <div id="loginTab" class="tab-content active">
+                <h2>Welcome back</h2>
+                <p class="tab-subtitle">Enter your credentials to access your account</p>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>Email or Username</label>
+                        <input type="text" placeholder="Enter your email or username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn-login">Log In</button>
+                </form>
+                <p class="forgot-password"><a href="#">Forgot password?</a></p>
+            </div>
+
+            <div id="signupTab" class="tab-content">
+                <h2>Create account</h2>
+                <p class="tab-subtitle">Join SocialHub today</p>
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="Create a password" required>
+                    </div>
+                    <button type="submit" class="btn-login">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="appPage" class="app-layout">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="40" height="40" rx="8" fill="#8B5CF6"/>
+                    <path d="M14 18 L20 12 L26 18 M20 12 L20 28" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+                </svg>
+                <span class="logo-text">SocialHub</span>
+            </div>
+            <div class="header-center">
+                <input type="text" placeholder="Search..." class="search-header">
+            </div>
+            <div class="header-right">
+                <button class="header-btn" id="createPostBtn">➕</button>
+                <button class="header-btn btn-logout-header" id="logoutHeaderBtn">Logout</button>
+            </div>
+        </header>
+
+        <!-- Create Post Modal -->
+        <div id="createPostModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Create Post</h2>
+                    <button class="modal-close" id="closeModal">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="create-post-modal-header">
+                        <img src="https://i.pravatar.cc/100?img=8" alt="Your Profile" class="create-post-avatar">
+                        <div class="create-post-info">
+                            <h3>Your Name</h3>
+                            <p>@yourusername</p>
+                        </div>
+                    </div>
+                    <div class="create-post-modal-input">
+                        <textarea id="postInputModal" placeholder="What's on your mind?" rows="6"></textarea>
+                    </div>
+                    <div class="create-post-modal-actions">
+                        <button class="create-post-modal-btn photo-btn-modal" id="uploadPhotoBtn">
+                            <span>📷</span> Photo
+                        </button>
+                        <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                        <button class="create-post-modal-btn post-btn-modal" id="submitPostModalBtn">Post</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Profile Modal -->
+        <div id="editProfileModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Edit Profile</h2>
+                    <button class="modal-close" id="closeEditModal">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="edit-profile-form">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="editName" placeholder="Enter your name" value="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="editUsername" placeholder="Enter your username" value="@yourusername">
+                        </div>
+                        <div class="form-group">
+                            <label>Bio</label>
+                            <textarea id="editBio" placeholder="Tell us about yourself" rows="4">Photography enthusiast 📷 | Travel lover 🌍 | Coffee addict ☕</textarea>
+                        </div>
+                        <button class="btn-save-profile" id="saveProfileBtn">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+           
+        <!-- Main Content -->
+        <main class="main-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <a href="#" class="nav-item active" data-page="feed">
+                        <span class="nav-icon">🏠</span>
+                        <span>Home</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="search">
+                        <span class="nav-icon">🔍</span>
+                        <span>Explore</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="notifications">
+                        <span class="nav-icon">🔔</span>
+                        <span>Notifications</span>
+                        <span class="notification-badge">3</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="profile">
+                        <span class="nav-icon">👤</span>
+                        <span>Profile</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Feed Page -->
+                <div id="feedPage" class="content-page active">
+                    <div class="feed-header">
+                        <h2>Your Feed</h2>
+                    </div>
+                    <div id="feedContainer" class="feed-container"></div>
+                </div>
+
+                <!-- Profile Page -->
+                <div id="profilePage" class="content-page">
+                    <div class="profile-container">
+                        <div class="profile-header">
+                            <img src="https://i.pravatar.cc/100?img=8" alt="Profile" class="profile-avatar">
+                            <div class="profile-info">
+                                <h1 id="profileName">Your Name</h1>
+                                <p class="username" id="profileUsername">@yourusername</p>
+                                <p class="bio" id="profileBio">Photography enthusiast 📷 | Travel lover 🌍 | Coffee addict ☕</p>
+                                <p class="bio-subtitle">Sharing my journey one photo at a time</p>
+                                <div class="stats">
+                                    <div class="stat"><strong>156</strong> Posts</div>
+                                    <div class="stat"><strong>2,543</strong> Followers</div>
+                                    <div class="stat"><strong>842</strong> Following</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn-edit-profile" id="editProfileBtn">Edit Profile</button>
+                        <div class="profile-tabs">
+                            <button class="profile-tab active" data-tab="posts">📷 Posts</button>
+                            <button class="profile-tab" data-tab="saved">📌 Saved</button>
+                            <button class="profile-tab" data-tab="followers">👥 Followers</button>
+                        </div>
+                        <div id="postsTab" class="profile-content active"></div>
+                        <div id="savedTab" class="profile-content">
+                            <div id="savedPostsContainer"></div>
+                        </div>
+                        <div id="followersTab" class="profile-content"></div>
+                    </div>
+                </div>
+
+                <!-- Notifications Page -->
+                <div id="notificationsPage" class="content-page">
+                    <div class="notifications-container">
+                        <div class="notifications-header">
+                            <h2>Notifications</h2>
+                            <button class="btn-mark-read">Mark all as read</button>
+                        </div>
+                        <div class="notification-filter">
+                            <button class="filter-btn active">New</button>
+                        </div>
+                        <div id="notificationsContainer" class="notifications-list"></div>
+                    </div>
+                </div>
+
+                <!-- Search Page -->
+                <div id="searchPage" class="content-page">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Search for users...">
+                        </div>
+                        <div class="search-results">
+                            <h3>Suggested for you</h3>
+                            <div id="suggestedUsers" class="suggested-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <p>© 2024 SocialHub. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
