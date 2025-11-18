@@ -20,7 +20,7 @@ body {
     color: var(--text);
 }
 
-/* Login Page */
+
 .login-page {
     display: none;
     align-items: center;
@@ -32,6 +32,7 @@ body {
 .login-page.active {
     display: flex;
 }
+
 
 .login-container {
     background: white;
@@ -47,22 +48,23 @@ body {
     height: 60px;
     margin: 0 auto 24px;
 }
-
-.login-logo svg {
-    width: 100%;
-    height: 100%;
+.login-logo img{
+    width: 80px;
+    height: 80px;
 }
+
+
 
 .login-container h1 {
     text-align: center;
     font-size: 32px;
     margin-bottom: 8px;
-    color: var(--dark);
+    color:black;
 }
 
 .login-subtitle {
     text-align: center;
-    color: var(--text-light);
+    color: lightslategray;
     margin-bottom: 32px;
     font-size: 14px;
 }
@@ -163,6 +165,9 @@ body {
 }
 
 .forgot-password a {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 14px;
     color: var(--primary);
     text-decoration: none;
 }
