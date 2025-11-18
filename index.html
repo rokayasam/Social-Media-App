@@ -7,11 +7,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="login-page" class="login-page active">
+    <!-- Login Page (full screen) -->
+    <div id="loginPage" class="login-page active">
         <div class="login-container">
             <div class="login-logo">
-                <img src="images/user.png" alt="login icon">
-            </div>ٌ
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" rx="20" fill="#8B5CF6"/>
+                    <path d="M35 45 L50 30 L65 45 M50 30 L50 70" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                </svg>
+            </div>
 
             <h1>SocialHub</h1>
             <p class="login-subtitle">Connect with friends and the world around you</p>
@@ -21,7 +25,7 @@
                 <button class="tab-btn" data-tab="signup">Sign Up</button>
             </div>
 
-            <div id="loginTab" class="tab-content.active ">
+            <div id="loginTab" class="tab-content active">
                 <h2>Welcome back</h2>
                 <p class="tab-subtitle">Enter your credentials to access your account</p>
                 <form id="loginForm">
@@ -38,7 +42,7 @@
 
             <div id="signupTab" class="tab-content">
                 <h2>Create account</h2>
-                <p class="tab-subtitle">Join SocialHub </p>
+                <p class="tab-subtitle">Join SocialHub today</p>
                 <form id="signupForm">
                     <div class="form-group">
                         <label>Full Name</label>
@@ -54,11 +58,8 @@
         </div>
     </div>
 
-   
-
     <!-- Main App -->
     <div id="appPage" class="app-layout">
-        <!-- Header -->
         <header class="header">
             <div class="header-left">
                 <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -67,12 +68,15 @@
                 </svg>
                 <span class="logo-text">SocialHub</span>
             </div>
+
             <div class="header-center">
-                <input type="text" placeholder="Search..." class="search-header">
+                <!-- kept id for JS (global search) -->
+                <input id="globalSearch" type="text" placeholder="Search..." class="search-header">
             </div>
+
             <div class="header-right">
-                <button class="header-btn" id="createPostBtn">➕</button>
-                <button class="header-btn btn-logout-header" id="logoutHeaderBtn">Logout</button>
+                <button id="createPostBtn" class="header-btn">➕</button>
+                <button id="logoutHeaderBtn" class="header-btn btn-logout-header">Logout</button>
             </div>
         </header>
 
@@ -81,7 +85,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h2>Create Post</h2>
-                    <button class="modal-close" id="closeModal">✕</button>
+                    <button id="closeModal" class="modal-close">✕</button>
                 </div>
                 <div class="modal-body">
                     <div class="create-post-modal-header">
@@ -91,15 +95,13 @@
                             <p>@yourusername</p>
                         </div>
                     </div>
-                    <div class="create-post-modal-input">
-                        <textarea id="postInputModal" placeholder="What's on your mind?" rows="6"></textarea>
-                    </div>
-                    <div class="create-post-modal-actions">
-                        <button class="create-post-modal-btn photo-btn-modal" id="uploadPhotoBtn">
-                            <span>📷</span> Photo
-                        </button>
-                        <input type="file" id="photoInput" accept="image/*" style="display: none;">
-                        <button class="create-post-modal-btn post-btn-modal" id="submitPostModalBtn">Post</button>
+
+                    <textarea id="postInputModal" placeholder="What's on your mind?" rows="6"></textarea>
+
+                    <div class="modal-actions">
+                        <button id="uploadPhotoBtn" class="btn">📷 Photo</button>
+                        <input id="photoInput" type="file" accept="image/*" style="display:none">
+                        <button id="submitPostModalBtn" class="btn primary">Post</button>
                     </div>
                 </div>
             </div>
@@ -110,134 +112,86 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h2>Edit Profile</h2>
-                    <button class="modal-close" id="closeEditModal">✕</button>
+                    <button id="closeEditModal" class="modal-close">✕</button>
                 </div>
                 <div class="modal-body">
-                    <div class="edit-profile-form">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" id="editName" placeholder="Enter your name" value="Your Name">
-                        </div>
-                        <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" id="editUsername" placeholder="Enter your username" value="@yourusername">
-                        </div>
-                        <div class="form-group">
-                            <label>Bio</label>
-                            <textarea id="editBio" placeholder="Tell us about yourself" rows="4">Photography enthusiast 📷 | Travel lover 🌍 | Coffee addict ☕</textarea>
-                        </div>
-                        <button class="btn-save-profile" id="saveProfileBtn">Save Changes</button>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input id="editName" type="text" placeholder="Enter your name" value="Your Name">
                     </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input id="editUsername" type="text" placeholder="Enter your username" value="@yourusername">
+                    </div>
+                    <div class="form-group">
+                        <label>Bio</label>
+                        <textarea id="editBio" rows="4">Photography enthusiast 📷 | Travel lover 🌍 | Coffee addict ☕</textarea>
+                    </div>
+                    <button id="saveProfileBtn" class="btn primary">Save Changes</button>
                 </div>
             </div>
         </div>
-           
-        <!-- Main Content -->
+
         <main class="main-layout">
-            <!-- Sidebar Navigation -->
             <aside class="sidebar">
                 <nav class="nav-menu">
-                    <a href="#" class="nav-item active" data-page="feed">
-                        <span class="nav-icon">🏠</span>
-                        <span>Home</span>
-                    </a>
-                    <a href="#" class="nav-item" data-page="search">
-                        <span class="nav-icon">🔍</span>
-                        <span>Explore</span>
-                    </a>
-                    <a href="#" class="nav-item" data-page="notifications">
-                        <span class="nav-icon">🔔</span>
-                        <span>Notifications</span>
-                        <span class="notification-badge">3</span>
-                    </a>
-                    <a href="#" class="nav-item" data-page="profile">
-                        <span class="nav-icon">👤</span>
-                        <span>Profile</span>
-                    </a>
+                    <a href="#" class="nav-item active" data-page="feed">🏠 Home <span class="notification-badge" style="display:none">0</span></a>
+                    <a href="#" class="nav-item" data-page="search">🔍 Explore</a>
+                    <a href="#" class="nav-item" data-page="notifications">🔔 Notifications <span class="notification-badge">3</span></a>
+                    <a href="#" class="nav-item" data-page="profile">👤 Profile</a>
                 </nav>
             </aside>
 
-            <!-- Content Area -->
             <div class="content-area">
-                <!-- Feed Page -->
                 <div id="feedPage" class="content-page active">
-                    <div class="feed-header">
-                        <h2>Your Feed</h2>
-                    </div>
+                    <h2>Your Feed</h2>
                     <div id="feedContainer" class="feed-container"></div>
                 </div>
 
-                <!-- Profile Page -->
                 <div id="profilePage" class="content-page">
-                    <div class="profile-container">
-                        <div class="profile-header">
-                            <img src="https://i.pravatar.cc/100?img=8" alt="Profile" class="profile-avatar">
-                            <div class="profile-info">
-                                <h1 id="profileName">Your Name</h1>
-                                <p class="username" id="profileUsername">@yourusername</p>
-                                <p class="bio" id="profileBio">Photography enthusiast 📷 | Travel lover 🌍 | Coffee addict ☕</p>
-                                <p class="bio-subtitle">Sharing my journey one photo at a time</p>
-                                <div class="stats">
-                                    <div class="stat"><strong>156</strong> Posts</div>
-                                    <div class="stat"><strong>2,543</strong> Followers</div>
-                                    <div class="stat"><strong>842</strong> Following</div>
-                                </div>
-                            </div>
+                    <div class="profile-top">
+                        <img src="https://i.pravatar.cc/100?img=8" alt="Profile" class="avatar">
+                        <div class="profile-info">
+                            <h2 id="profileName">Your Name</h2>
+                            <div class="profile-username" id="profileUsername">@yourusername</div>
+                            <div class="profile-bio" id="profileBio">Photography enthusiast 📷 | Travel lover 🌍 | Coffee addict ☕</div>
+                            <button id="editProfileBtn" class="btn-edit-profile">Edit Profile</button>
                         </div>
-                        <button class="btn-edit-profile" id="editProfileBtn">Edit Profile</button>
-                        <div class="profile-tabs">
-                            <button class="profile-tab active" data-tab="posts">📷 Posts</button>
-                            <button class="profile-tab" data-tab="saved">📌 Saved</button>
-                            <button class="profile-tab" data-tab="followers">👥 Followers</button>
-                        </div>
-                        <div id="postsTab" class="profile-content active"></div>
-                        <div id="savedTab" class="profile-content">
-                            <div id="savedPostsContainer"></div>
-                        </div>
-                        <div id="followersTab" class="profile-content"></div>
                     </div>
+
+                    <div class="profile-tabs">
+                        <button class="profile-tab active" data-tab="posts">📷 Posts</button>
+                        <button class="profile-tab" data-tab="saved">📌 Saved</button>
+                        <button class="profile-tab" data-tab="followers">👥 Followers</button>
+                    </div>
+
+                    <div id="postsTab" class="profile-content active"></div>
+                    <div id="savedTab" class="profile-content">
+                        <div id="savedPostsContainer"></div>
+                    </div>
+                    <div id="followersTab" class="profile-content"></div>
                 </div>
 
-                <!-- Notifications Page -->
                 <div id="notificationsPage" class="content-page">
                     <div class="notifications-container">
-                        <div class="notifications-header">
-                            <h2>Notifications</h2>
-                            <button class="btn-mark-read">Mark all as read</button>
-                        </div>
-                        <div class="notification-filter">
-                            <button class="filter-btn active">New</button>
-                        </div>
+                        <h2>Notifications</h2>
                         <div id="notificationsContainer" class="notifications-list"></div>
                     </div>
                 </div>
 
-                <!-- Search Page -->
                 <div id="searchPage" class="content-page">
-                    <div class="search-container">
-                        <div class="search-box">
-                            <input type="text" id="searchInput" placeholder="Search for users...">
-                        </div>
-                        <div class="search-results">
-                            <h3>Suggested for you</h3>
-                            <div id="suggestedUsers" class="suggested-list"></div>
-                        </div>
+                    <div class="search-box">
+                        <input id="searchInput" type="text" placeholder="Search for users...">
                     </div>
+                    <h3>Suggested for you</h3>
+                    <div id="suggestedUsers" class="suggested-list"></div>
                 </div>
             </div>
         </main>
 
-        <!-- Footer -->
         <footer class="footer">
             <div class="footer-content">
-                <div class="footer-section">
-                    <p>© 2024 SocialHub. All rights reserved.</p>
-                </div>
-                <div class="footer-links">
-                    <a href="#">Privacy</a>
-                    <a href="#">Terms</a>
-                    <a href="#">Contact</a>
-                </div>
+                <div>© 2024 SocialHub. All rights reserved.</div>
             </div>
         </footer>
     </div>
